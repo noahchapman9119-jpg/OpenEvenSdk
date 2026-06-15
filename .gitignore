@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# iOS / Xcode (project is generated from project.yml via XcodeGen)
+ios/*.xcodeproj/
+ios/DerivedData/
+*.xcuserstate
+.DS_Store
+
+# Android / Gradle
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+
+# misc
+*.log

@@ -1,0 +1,56 @@
+# XcodeGen spec for the g2-bridge iOS app.
+#
+#   brew install xcodegen      # if needed
+#   cd ios && xcodegen generate
+#   open G2Bridge.xcodeproj    # then set your signing Team and run on a device
+#
+# Generates a single iOS app target (deployment iOS 16+) containing both the
+# G2Bridge BLE/HTTP core and the SwiftUI app shell. CoreBluetooth, Network,
+# CoreGraphics, and CoreText are all part of the SDK - no extra link flags or
+# third-party dependencies.
+
+name: G2Bridge
+options:
+  bundleIdPrefix: com.g2bridge
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1,2"   # iPhone + iPad
+    # Set your own signing team here, or do it in Xcode after generating.
+    # DEVELOPMENT_TEAM: ABCDE12345
+
+targets:
+  G2Bridge:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/G2Bridge
+      - path: Sources/G2BridgeApp
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: g2-bridge
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        # ---- permission strings (REQUIRED - the app crashes/denies without these) ----
+        NSBluetoothAlwaysUsageDescription: "g2-bridge connects to your Even Realities G2 glasses over Bluetooth."
+        NSLocalNetworkUsageDescription: "g2-bridge runs a local HTTP server so other devices on your Wi-Fi can send text and images to the glasses."
+        # Bonjour service type is only strictly needed if you advertise/browse via
+        # NWListener with a Bonjour service. The raw-TCP listener here does not, but
+        # iOS still gates inbound LAN connections behind the Local Network prompt,
+        # which the string above satisfies. Declared for completeness / future use.
+        NSBonjourServices:
+          - "_g2bridge._tcp"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.g2bridge.app
+        GENERATE_INFOPLIST_FILE: false

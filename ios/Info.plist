@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Info.plist for the g2-bridge iOS app.
+
+  XcodeGen merges the keys under `targets.G2Bridge.info.properties` in
+  project.yml on top of this file, so the two stay in sync. If you build the
+  app MANUALLY (File > New > iOS App), use THIS file (or copy the three usage
+  strings below into the auto-generated plist) - without the Bluetooth and
+  Local Network usage strings the OS denies the permission and nothing renders.
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>g2-bridge</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+
+	<!-- REQUIRED: BLE link to the glasses. -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>g2-bridge connects to your Even Realities G2 glasses over Bluetooth.</string>
+
+	<!-- REQUIRED: inbound LAN connections to the local HTTP server. -->
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>g2-bridge runs a local HTTP server so other devices on your Wi-Fi can send text and images to the glasses.</string>
+
+	<!-- Bonjour service type. The raw-TCP listener does not advertise via
+	     Bonjour, but this is declared for completeness / future discovery. -->
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_g2bridge._tcp</string>
+	</array>
+
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+</dict>
+</plist>
