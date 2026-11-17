@@ -72,7 +72,8 @@ struct ContentView: View {
                         .lineLimit(1...4)
                     Button("Send to lens") {
                         let line = testLine
-                        Task { @MainActor in await g2.displayText(line) }
+                        Task { @MainActor in 
+                              await g2.updateText(name: "ai-hud", content: line)
                     }
                     .disabled(!isConnected)
                 }
