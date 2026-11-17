@@ -70,12 +70,15 @@ struct ContentView: View {
                 Section("Send a test line") {
                     TextField("Text to display", text: $testLine, axis: .vertical)
                         .lineLimit(1...4)
+                    
                     Button("Send to lens") {
                         let line = testLine
-                        Task { @MainActor in 
-                              await g2.updateText(name: "ai-hud", content: line)
+                        Task { @MainActor in
+                            await g2.updateText(name: "ai-hud", content: line)
+                        }
                     }
                     .disabled(!isConnected)
+
                 }
             }
             .navigationTitle("g2-bridge")
